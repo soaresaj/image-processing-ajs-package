@@ -8,9 +8,9 @@ setup(
     author='Antonio José Soares',                          # Author's name
     author_email='soaresaj@terra.com.br',       # Author's email
     description='A package for image processing using Python',  # Package description
-    long_description=open('README.md').read(),  # Reads the long description from README.md
+    long_description=open('README.md', encoding='utf-8').read(),  # Reads the long description from README.md
     long_description_content_type='text/markdown',  # Type of content in README
-    url='https://github.com/soaresaj/image_processing_ajs-package',  # Repository URL
+    url='https://github.com/soaresaj/image-processing-ajs-package',  # Repository URL
     packages=find_packages(),                    # Finds all packages in the directory
     classifiers=[                                # Classifiers for PyPI
         'Programming Language :: Python :: 3',
