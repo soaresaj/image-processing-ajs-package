@@ -6,9 +6,9 @@
 ### Package Structure
 ```bash
 image_processing_ajs/  
-├── image_processing_ajs/	# Main package directory  
-│   ├── __init__.py                          # Marks this directory as a Python package  
-│   ├── io.py                                # Loads and saves images  
+├── image_processing_ajs/              # Main package directory  
+│   ├── __init__.py                    # Marks this directory as a Python package  
+│   ├── io.py                          # Loads and saves images  
 │   ├── measure.py                     # Labels and measures connected components  
 │   ├── exposure.py                    # Adjusts intensity and gamma correction  
 │   ├── color.py                       # Converts colored images to grayscale  
@@ -35,7 +35,7 @@ Uses “skimage.exposure.rescale_intensity()” to rescale the intensity of pixe
 Uses “skimage.color.rgb2gray()” to convert colored images (RGB) to grayscale.  
 
 ***“plot.py”:***  
-Uses functions from the “matplotlib” library to display the results from the “io”, “measure”, “exposure”, and “color” modules.  
+Uses functions “show_image()” and “show_images_side_by_side()” from the “matplotlib” library to display the results from the “io”, “measure”, “exposure”, and “color” modules.  
 
 ## Installation
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install image_processing_ajs:  
