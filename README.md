@@ -5,8 +5,8 @@
 
 ### Package Structure
 ```bash
-image_processing_ajs/  
-├── image_processing_ajs/              # Main package directory  
+image_processing/  
+├── processing/                        # Main package directory  
 │   ├── __init__.py                    # Marks this directory as a Python package  
 │   ├── io.py                          # Loads and saves images  
 │   ├── measure.py                     # Labels and measures connected components  
