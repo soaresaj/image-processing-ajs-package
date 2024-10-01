@@ -14,6 +14,12 @@ image_processing/
 │   ├── color.py                       # Converts colored images to grayscale  
 │   └── plot.py                        # Functions for visualizing results  
 ├── tests/                             # Directory for tests  
+│   ├── __init__.py                    # Marks this directory as a Python package  
+│   ├── test_io.py                     # Tests for loads and saves images  
+│   ├── test_measure.py                # Tests for labels and measures connected components  
+│   ├── test_exposure.py               # Tests for adjusts intensity and gamma correction  
+│   ├── test_color.py                  # Tests for converts colored images to grayscale  
+│   └── test_plot.py                   # Tests for functions for visualizing results  
 ├── README.md                          # Basic documentation  
 ├── setup.py                           # Setup script for setuptools  
 └── requirements.txt                   # Dependencies file  
