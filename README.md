@@ -77,6 +77,7 @@ plot.show_image(image)
 ## Tests
 The package contains a test directory where you can find test cases to ensure the proper functionality of the features.
 
+Run the ***‘main.py’*** file with the ***‘original_image.jpg’*** to verify the package functionalities.
 ## Contributions
 Contributions are welcome! Feel free to open issues or submit pull requests.
 
