@@ -20,6 +20,7 @@ image_processing_ajs/
 │   ├── test_exposure.py               # Tests for adjusts intensity and gamma correction  
 │   ├── test_color.py                  # Tests for converts colored images to grayscale  
 │   └── test_plot.py                   # Tests for functions for visualizing results  
+├── __init__.py                        # Marks this directory as a Python package  
 ├── README.md                          # Basic documentation  
 ├── setup.py                           # Setup script for setuptools  
 └── requirements.txt                   # Dependencies file  
