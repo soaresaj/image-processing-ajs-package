@@ -1,8 +1,8 @@
 from image_processing_ajs.processing.color import convert_to_grayscale
 from image_processing_ajs.processing.io import load_image, save_image
 from image_processing_ajs.processing.measure import detect_edges, label_components, calculate_properties
-from image_processing_ajs.processing.exposure import adjust_gamma_correction, rescale_intensity  # Importação das funções de exposure
-from image_processing_ajs.processing.plot import show_image, show_images_side_by_side  # Importa as funções de plotagem
+from image_processing_ajs.processing.exposure import adjust_gamma_correction, rescale_intensity  # Importing exposure functions
+from image_processing_ajs.processing.plot import show_image, show_images_side_by_side  # Importing plotting functions
 import numpy as np
 from PIL import Image
 from skimage import img_as_ubyte
@@ -10,10 +10,10 @@ from skimage import img_as_ubyte
 def is_valid_image(path):
     try:
         img = Image.open(path)
-        img.verify()  # Verifica se é uma imagem válida
+        img.verify()  # Verifies if the file is a valid image
         return True
     except (IOError, SyntaxError) as e:
-        print(f"Erro ao verificar a imagem: {e}")
+        print(f"Error verifying the image: {e}")
         return False
 
 def save_properties_to_txt(properties, file_path):
@@ -21,102 +21,102 @@ def save_properties_to_txt(properties, file_path):
         with open(file_path, 'w') as f:
             for prop in properties:
                 f.write(str(prop) + '\n')
-        print(f"Propriedades salvas com sucesso em {file_path}")
+        print(f"Properties successfully saved to {file_path}")
     except Exception as e:
-        print(f"Erro ao salvar propriedades: {e}")
+        print(f"Error saving properties: {e}")
 
 def main():
     try:
-        image_path = str(input('Entrar com a localização e a identificação da imagem: ')).strip()
-        # Verifique se o arquivo é uma imagem válida
-        #image_path = 'C:/workspace/ntt-data-python-dio/image-processing-ajs-package/original_image.jpg'
+        image_path = str(input('Enter the location and identification of the image: ')).strip()
+        # Check if the file is a valid image
+        # image_path = 'C:/workspace/ntt-data-python-dio/image-processing-ajs-package/original_image.jpg'
         if not is_valid_image(image_path):
-            raise ValueError("O arquivo não é uma imagem válida.")
+            raise ValueError("The file is not a valid image.")
 
-        # Carregar a imagem
+        # Load the image
         image = load_image(image_path)
         if image is None:
-            raise ValueError("A imagem não pôde ser carregada. Verifique o caminho do arquivo.")
+            raise ValueError("The image could not be loaded. Check the file path.")
         
-        # Verifique se a imagem é um array NumPy
+        # Check if the image is a NumPy array
         if not isinstance(image, np.ndarray):
-            raise TypeError("O objeto carregado não é uma imagem válida.")
+            raise TypeError("The loaded object is not a valid image.")
         
-        # Converter para escala de cinza
+        # Convert to grayscale
         gray_image = convert_to_grayscale(image)
         
-        # Verifique se gray_image é um array NumPy
+        # Check if gray_image is a NumPy array
         if not isinstance(gray_image, np.ndarray):
-            raise TypeError("O objeto convertido não é uma imagem válida.")
+            raise TypeError("The converted object is not a valid image.")
         
-        # Converta a imagem para uint8
+        # Convert the image to uint8
         gray_image = (gray_image * 255).astype(np.uint8)
 
-        # Ajustar a correção gama
+        # Adjust gamma correction
         gamma_corrected_image = adjust_gamma_correction(image, gamma=1.5)
-        print("Correção gama aplicada com sucesso.")
+        print("Gamma correction applied successfully.")
         
-        # Converta para uint8 antes de salvar
+        # Convert to uint8 before saving
         gamma_corrected_image_uint8 = img_as_ubyte(gamma_corrected_image)
 
-        # Reescalar a intensidade da imagem
+        # Rescale the image intensity
         rescaled_image = rescale_intensity(image, in_range=(50, 200), out_range=(0, 255))
-        print("Intensidade da imagem reescalada com sucesso.")
+        print("Image intensity successfully rescaled.")
         
-        # Normalizar valores para garantir que estejam no intervalo [0, 1]
+        # Normalize values to ensure they are within [0, 1] range
         rescaled_image_normalized = rescale_intensity(rescaled_image, out_range=(0, 1))
 
-        # Converta para uint8 antes de salvar
+        # Convert to uint8 before saving
         rescaled_image_uint8 = img_as_ubyte(rescaled_image_normalized)
         
-        # Detectar bordas na imagem convertida para escala de cinza
+        # Detect edges in the grayscale image
         edges_image = detect_edges(gray_image)
-        print("Bordas detectadas com sucesso.")
+        print("Edges successfully detected.")
         
-        # Converta a imagem para uint8
+        # Convert the image to uint8
         edges_image = (edges_image * 255).astype(np.uint8)
 
-        # Rotular componentes conectados na imagem de bordas
+        # Label connected components in the edge-detected image
         labeled_image = label_components(edges_image)
-        print("Componentes conectados rotulados com sucesso.")
+        print("Connected components successfully labeled.")
         
-        # Converta a imagem para uint8
+        # Convert the image to uint8
         labeled_image = (labeled_image * 255).astype(np.uint8)
 
-        # Calcular propriedades dos componentes rotulados
+        # Calculate properties of the labeled components
         properties = calculate_properties(labeled_image)
-        print(f"Propriedades calculadas com sucesso.")
+        print(f"Properties successfully calculated.")
         
-        # Salvar a imagem convertida
+        # Save the converted grayscale image
         if not save_image('gray_image.jpg', gray_image):
-            raise ValueError("A imagem não pôde ser salva. Verifique o caminho do arquivo e o formato da imagem.")
+            raise ValueError("The image could not be saved. Check the file path and image format.")
 
-        # Salvar a imagem corrigida com gama
+        # Save the gamma corrected image
         if not save_image('gamma_image.jpg', gamma_corrected_image_uint8):
-            raise ValueError("A imagem corrigida com gama não pôde ser salva.")
+            raise ValueError("The gamma corrected image could not be saved.")
         
-        # Salvar a imagem com a intensidade reescalada
+        # Save the rescaled intensity image
         if not save_image('rescaled_image.jpg', rescaled_image_uint8):
-            raise ValueError("A imagem com intensidade reescalada não pôde ser salva.")
+            raise ValueError("The rescaled intensity image could not be saved.")
 
-        # Salvar a imagem de bordas detectadas
+        # Save the edge-detected image
         if not save_image('edges_image.jpg', edges_image):
-            raise ValueError("A imagem de bordas não pôde ser salva.")
+            raise ValueError("The edge-detected image could not be saved.")
         
-        # Salvar a imagem rotulada
+        # Save the labeled image
         if not save_image('labeled_image.jpg', labeled_image):
-            raise ValueError("A imagem rotulada não pôde ser salva.")
+            raise ValueError("The labeled image could not be saved.")
         
-        # Salvar as propriedades
+        # Save the properties
         save_properties_to_txt(properties, 'properties_image.txt')
 
-        # Exibir as imagens geradas lado a lado
+        # Display the generated images side by side
         show_images_side_by_side(
             [image, gray_image, gamma_corrected_image_uint8, rescaled_image_uint8],
             titles=["Original", "Gray Scale", "Gamma Corrected", "Rescaled Intensity"]
         )
 
-        # Exibir individualmente outras imagens geradas
+        # Display the other generated images individually
         show_image(edges_image, title="Edges Detected")
         show_image(labeled_image, title="Labeled Components")
 
