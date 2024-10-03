@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='image_processing_ajs',                # Package name
-    version='0.1.1',                            # Package version
+    version='0.1.2',                            # Package version
     author='Antonio José Soares',                          # Author's name
     author_email='soaresaj@terra.com.br',       # Author's email
     description='A package for image processing using Python',  # Package description
